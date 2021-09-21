@@ -1,0 +1,10 @@
+part of './mock_response.dart';
+
+const fakeCreateTokenResponse = {
+  "access_token":
+      "pVqPln6AgGE8d7T72hOFy8AxC-f56F9ia5UnlZQx_wLN5juxoAKukKgBbgy2hky28R_hApATxpZl0QKVv4M3BVGX5W24rdXgC9VeDm-RtkGLvljtJmmSrfZhZnJJnva_hQDzfU25BsXsdT_EcdVNBP-pfG-2WrEqMkGk55HGHLywL7RVqh5VsN9_J_15Ytvo85LJMIfgyIOeolbyjKRQugQMNVXo6FXEQSyH6L8TYf70yu1PJ1h-QpAfaWDjKRbHa2Q_fGDs0QbIiUSEW5NxI4mIIbdVf_T1n4CwUfwOwg27Tjpd013ydtklYkEwFwGSP4x9fyyaBxOG6hh45v6tjOTKXRQYrIZvGKhpldnwuy_P1M0berQMfzlKapqX48vbFmhqFqsEjcoQKSUBFNqHO6eb3hyw-iLSfUhPF9l27DL4UxESjd4BkJU7aq8TgKEd7tEC0_ULtDIcgLNlOMobstfdnAPTURUyKBJnh0tLj8BWXKGkHl-SyYTecnPuUREfe1r9QJ86A0Y_Ssnth6qz8yipiKjBmAl4RRQyhOF61CwuPdlZeAngIRiL8NxLeFsP6Jg738S__R1cnwBp0VAX5sbeDjrwC2_i-8RN96pqQd2EJQyipR9GDP_Cy_rbjSxIWdFowfvlm0THqLydCVgiNwWLKVOYJukKBK-WF6LqUzPmSnwkXgUnVrdzGtlezGUziz-J-4jcy6lC1ypbhMJPmQf2mBw",
+  "token_type": "bearer",
+  "expires_in": 10799,
+  "refresh_token": "dfa6634a36bd40cda8bc85b97afe19c9",
+  "UserId": "7407370c-7c4c-48cd-ad7f-a4b21e024b41"
+};

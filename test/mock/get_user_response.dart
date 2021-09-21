@@ -1,0 +1,33 @@
+part of './mock_response.dart';
+
+const fakeGetUserResponse = {
+  "ID": "7407370c-7c4c-48cd-ad7f-a4b21e024b41",
+  "UserName": null,
+  "Email": "chris@voilaah.com",
+  "FirstName": "Christophe",
+  "LastName": "Vidal",
+  "DisplayName": "",
+  "Description": null,
+  "DOB": null,
+  "PhoneNumber": "+6591133610",
+  "DateJoined": 1632216776,
+  "Roles": ["Admin"],
+  "Media": [],
+  "CustomFields": null,
+  "TimeZone": null,
+  "Onboarded": true,
+  "OnboardedDateTime": 1632216905,
+  "Active": true,
+  "Enabled": true,
+  "Visible": true,
+  "Guest": false,
+  "Addresses": null,
+  "PaymentMethods": null,
+  "PaymentAcceptanceMethods": null,
+  "UserLogins": null,
+  "AdminOwnerID": null,
+  "LanguageCode": null,
+  "AccountOwnerID": null,
+  "Permissions": null,
+  "TotalSuccessfulOrderCount": 0
+};
