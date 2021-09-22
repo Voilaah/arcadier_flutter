@@ -5,7 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class Application {
@@ -17,7 +17,7 @@ class Application {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -106,6 +106,20 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _fetchCategories() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final categories = await arcadier.categories.query();
+    String msg = "Nb categories:${categories.totalRecords}\n";
+    msg = msg + categories.records.map((x) => x.name).toString();
+    print(msg);
+    _setMessage(msg);
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,12 +150,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('User Info'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await _fetchCategories();
+              },
               child: const Text('Categories list'),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Category detail'),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -150,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('Items list'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {},
               child: const Text('Item detail'),
             ),
             const Divider(

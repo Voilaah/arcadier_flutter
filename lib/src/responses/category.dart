@@ -34,7 +34,7 @@ class Category {
         name: json["Name"],
         description: json["Description"],
         sortOrder: json["SortOrder"],
-        media: json["Media"],
+        media: json["Media"] != null ? List<Media>.from(json["Media"].map((x) => Media.fromJson(x))) : [],
         parentCategoryId: json["ParentCategoryID"] == null ? null : json["ParentCategoryID"],
         childCategories: json["ChildCategories"],
         level: json["Level"],
