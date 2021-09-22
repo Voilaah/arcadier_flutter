@@ -2,6 +2,7 @@ library arcadier;
 
 import 'package:arcadier/src/resources/category_resource.dart';
 import 'package:arcadier/src/responses.dart';
+import 'package:flutter/material.dart';
 
 import 'src/client.dart';
 import 'src/resources/categories_resources.dart';
@@ -54,6 +55,7 @@ class Arcadier {
 
   // Constructor
   Arcadier({required this.host, required this.clientId, required this.clientSecret, this.apiVersion = 'v2'}) {
+    debugPrint('Init Arcadier with host...$host');
     //
     _client = Client(clientId, clientSecret, apiVersion);
     _client.version = _VERSION;

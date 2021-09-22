@@ -1,21 +1,32 @@
+import 'package:arcadier/arcadier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await dotenv.load();
+  runApp(MyApp());
+}
+
+class Application {
+  static final Arcadier arcadier = Arcadier(
+    host: dotenv.env['CLIENT_HOST']?.toString() ?? '',
+    clientId: dotenv.env['CLIENT_ID']?.toString() ?? '',
+    clientSecret: dotenv.env['CLIENT_SECRET']?.toString() ?? '',
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Arcadier Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Arcadier Flutter Demo'),
     );
   }
 }
@@ -31,6 +42,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  Arcadier arcadier = Application.arcadier;
 
   void _incrementCounter() {
     setState(() {
@@ -44,24 +56,44 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Wrap(
+          spacing: 6,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            ElevatedButton(
+              onPressed: () {
+                var token = arcadier.token.forAdmin();
+                print(token);
+              },
+              child: const Text('Admin token'),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('User token'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('User Info'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Categories list'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Category detail'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Items list'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Item detail'),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

@@ -27,9 +27,8 @@ class Client {
   Future<Map<String, dynamic>> post(String host, final List<String> path, {final dynamic data}) async {
     final uri = createUri(host, path);
     final headers = createHeader();
-    final response = await httpClient
-        .post(uri, body: json.encode(data), headers: headers)
-        .timeout(const Duration(seconds: 60), onTimeout: () {
+    final response =
+        await httpClient.post(uri, body: data, headers: headers).timeout(const Duration(seconds: 60), onTimeout: () {
       throw TimeoutException('The connection has timed out, Please try again!');
     });
     return processResponse(response);
@@ -65,9 +64,10 @@ class Client {
   Map<String, String> createHeader() {
     final headers = <String, String>{
       // 'Authorization': this.basicAuth(),
-      'Arcadier-Version': _apiVersion,
-      'Cache-Control': 'no-cache',
-      'Content-Type': 'application/json',
+      // 'Arcadier-Version': _apiVersion,
+      // 'Cache-Control': 'no-cache',
+      // 'Content-Type': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
     };
     if (null != token) {
       headers.addAll(bearerAuth());
@@ -86,12 +86,12 @@ class Client {
       // Throwing later.
     }
     if (responseStatusCode != 200) {
-      if (map == null || map['object'] == null) {
+      if (map == null || map['error'] == null) {
         throw UnknownTypeException('The status code returned was $responseStatusCode but no error was provided.');
       }
 
-      if (map['code'] != null && map['message'] != null) {
-        throw InvalidRequestException(map['code'].toString(), map['message'].toString());
+      if (map != null && map['error'] != null) {
+        throw InvalidRequestException(responseStatusCode.toString(), map['error'].toString());
       } else {
         throw UnknownTypeException('The status code returned was $responseStatusCode but the error type is unknown.');
       }
