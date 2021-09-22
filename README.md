@@ -28,25 +28,27 @@ dependencies:
 final arcadier = Arcadier("host", "clientId", "clientSecret");
 
 // token creation: admin or user (merchant or customer)
-final adminToken = await arcadier.token.createAdmin();
-final userToken = await arcadier.token.createUser("john@email.com", "mypassword");
+final adminToken = await arcadier.token.forAdmin();
+final userToken = await arcadier.token.forUser("john@email.com", "mypassword");
 
-// query items
+// retrieve a user info
+final user = await arcadier.user(userId);
+
+// retrieve items
 final items = await arcadier.items.query();
 final items = await arcadier.items.query(limit: 20);
 final items = await arcadier.items.query(limit: 20, page: 1);
 final items = await arcadier.items.query(limit: 20, query: "search term");
 final items = await arcadier.items.query(orderBy: "name", order: "asc");
 
-// query an item reviews
-final items = await arcadier.item(itemId).query();
+// retrieve an item
+final item = await arcadier.item(itemId);
 
-
-// query services
-final services = await arcadier.services.query();
-
-// query categories
+// retrieve categories
 final categories = await arcadier.categories.query();
+
+// retrieve a category
+final category = await arcadier.category(categoryId);
 
 
 

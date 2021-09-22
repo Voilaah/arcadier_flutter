@@ -1,5 +1,6 @@
 import 'package:arcadier/arcadier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
@@ -9,9 +10,9 @@ void main() async {
 
 class Application {
   static final Arcadier arcadier = Arcadier(
-    host: dotenv.env['CLIENT_HOST']?.toString() ?? '',
-    clientId: dotenv.env['CLIENT_ID']?.toString() ?? '',
-    clientSecret: dotenv.env['CLIENT_SECRET']?.toString() ?? '',
+    host: dotenv.get('CLIENT_HOST', fallback: ''),
+    clientId: dotenv.get('CLIENT_ID', fallback: ''),
+    clientSecret: dotenv.get('CLIENT_SECRET', fallback: ''),
   );
 }
 
@@ -41,12 +42,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String _message = "";
   Arcadier arcadier = Application.arcadier;
 
-  void _incrementCounter() {
+  void _setMessage(String str) {
     setState(() {
-      _counter++;
+      _message = str;
     });
   }
 
@@ -62,18 +63,30 @@ class _MyHomePageState extends State<MyHomePage> {
           spacing: 6,
           children: <Widget>[
             ElevatedButton(
-              onPressed: () {
-                var token = arcadier.token.forAdmin();
-                print(token);
+              onPressed: () async {
+                final token = await arcadier.token.forAdmin();
+                _setMessage(token.accessToken);
+                print(token.accessToken);
               },
               child: const Text('Admin token'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                final token = await arcadier.token
+                    .forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
+                _setMessage(token.accessToken);
+                print(token.accessToken);
+              },
               child: const Text('User token'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                final token = await arcadier.token
+                    .forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
+                final user = await arcadier.user(token.userId);
+                print("userId: ${token.userId}, user displayname: ${user.email}");
+                _setMessage(token.userId + '\n' + user.email);
+              },
               child: const Text('User Info'),
             ),
             ElevatedButton(
@@ -92,6 +105,17 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {},
               child: const Text('Item detail'),
             ),
+            const Divider(
+              height: 20,
+              color: Colors.black87,
+            ),
+            const SizedBox(height: 8),
+            Container(
+              width: double.infinity,
+              child: const Text("Result:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+            ),
+            const SizedBox(height: 16),
+            Text(_message),
           ],
         ),
       ),
