@@ -3,13 +3,17 @@ library arcadier;
 import 'package:flutter/material.dart';
 import 'src/client.dart';
 import 'src/resources/category_resource.dart';
-import 'src/resources/categories_resources.dart';
+import 'src/resources/categories_resource.dart';
 import 'src/resources/item_resource.dart';
 import 'src/resources/items_resource.dart';
 import 'src/resources/marketplace_resource.dart';
 import 'src/resources/token_resource.dart';
 import 'src/resources/user_resource.dart';
+
 import 'src/responses.dart';
+
+// Make the Response Models visible from outside the library
+export 'src/responses.dart';
 
 const String _VERSION = "0.1.0";
 

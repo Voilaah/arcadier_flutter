@@ -67,7 +67,7 @@ class Item {
   String name;
   String? buyerDescription;
   String? sellerDescription;
-  int price;
+  double price;
   dynamic priceUnit;
   bool stockLimited;
   int stockQuantity;
@@ -106,8 +106,8 @@ class Item {
   int createdDateTime;
   int modifiedDateTime;
   bool hasChildItems;
-  List<dynamic> childItems;
-  List<dynamic> addOns;
+  List<dynamic>? childItems;
+  List<dynamic>? addOns;
   dynamic serviceBookingUnitGuid;
   dynamic bookingUnit;
   dynamic durationUnit;
@@ -148,9 +148,11 @@ class Item {
         merchantDetail: MerchantDetail.fromJson(json["MerchantDetail"]),
         location: json["Location"],
         categories: List<Category>.from(json["Categories"].map((x) => Category.fromJson(x))),
-        shippingMethods: List<dynamic>.from(json["ShippingMethods"].map((x) => x)),
-        pickupAddresses: List<dynamic>.from(json["PickupAddresses"].map((x) => x)),
-        media: List<Media>.from(json["Media"].map((x) => Media.fromJson(x))),
+        shippingMethods:
+            json["ShippingMethods"] != null ? List<dynamic>.from(json["ShippingMethods"].map((x) => x)) : [],
+        pickupAddresses:
+            json["PickupAddresses"] != null ? List<dynamic>.from(json["PickupAddresses"].map((x) => x)) : [],
+        media: json["Media"] != null ? List<Media>.from(json["Media"].map((x) => Media.fromJson(x))) : [],
         tags: json["Tags"],
         scheduler: json["Scheduler"],
         distance: json["Distance"],
@@ -158,8 +160,8 @@ class Item {
         createdDateTime: json["CreatedDateTime"],
         modifiedDateTime: json["ModifiedDateTime"],
         hasChildItems: json["HasChildItems"],
-        childItems: List<dynamic>.from(json["ChildItems"].map((x) => x)),
-        addOns: List<dynamic>.from(json["AddOns"].map((x) => x)),
+        childItems: json["ChildItems"] != null ? List<dynamic>.from(json["ChildItems"].map((x) => x)) : [],
+        addOns: json["AddOns"] != null ? List<dynamic>.from(json["AddOns"].map((x) => x)) : [],
         serviceBookingUnitGuid: json["ServiceBookingUnitGuid"],
         bookingUnit: json["BookingUnit"],
         durationUnit: json["DurationUnit"],
@@ -211,8 +213,8 @@ class Item {
         "CreatedDateTime": createdDateTime,
         "ModifiedDateTime": modifiedDateTime,
         "HasChildItems": hasChildItems,
-        "ChildItems": List<dynamic>.from(childItems.map((x) => x)),
-        "AddOns": List<dynamic>.from(addOns.map((x) => x)),
+        "ChildItems": childItems != null ? List<dynamic>.from(childItems!.map((x) => x)) : [],
+        "AddOns": addOns != null ? List<dynamic>.from(addOns!.map((x) => x)) : [],
         "ServiceBookingUnitGuid": serviceBookingUnitGuid,
         "BookingUnit": bookingUnit,
         "DurationUnit": durationUnit,

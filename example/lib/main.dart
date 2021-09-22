@@ -43,11 +43,66 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _message = "";
+  int _page = 1;
+  bool _isLoading = false;
+
   Arcadier arcadier = Application.arcadier;
+  List<Item> _products = [];
 
   void _setMessage(String str) {
+    _message = str;
+  }
+
+  _adminToken() async {
     setState(() {
-      _message = str;
+      _isLoading = true;
+    });
+    final token = await arcadier.token.forAdmin();
+    _setMessage(token.accessToken);
+    print(token.accessToken);
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  _userToken() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final token =
+        await arcadier.token.forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
+    _setMessage(token.accessToken);
+    print(token.accessToken);
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  _fetchUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final token =
+        await arcadier.token.forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
+    final user = await arcadier.user(token.userId);
+    print("userId: ${token.userId}, user displayname: ${user.email}");
+    _setMessage(token.userId + '\n' + user.email);
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  _fetchItems() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final items = await arcadier.items.query();
+    String msg = "Nb items:${items.totalRecords}\n";
+    msg = msg + items.records.map((x) => x.name).toString();
+    print(msg);
+    _setMessage(msg);
+    setState(() {
+      _isLoading = false;
     });
   }
 
@@ -64,28 +119,19 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
               onPressed: () async {
-                final token = await arcadier.token.forAdmin();
-                _setMessage(token.accessToken);
-                print(token.accessToken);
+                await _adminToken();
               },
               child: const Text('Admin token'),
             ),
             ElevatedButton(
               onPressed: () async {
-                final token = await arcadier.token
-                    .forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
-                _setMessage(token.accessToken);
-                print(token.accessToken);
+                await _userToken();
               },
               child: const Text('User token'),
             ),
             ElevatedButton(
               onPressed: () async {
-                final token = await arcadier.token
-                    .forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
-                final user = await arcadier.user(token.userId);
-                print("userId: ${token.userId}, user displayname: ${user.email}");
-                _setMessage(token.userId + '\n' + user.email);
+                await _fetchUser();
               },
               child: const Text('User Info'),
             ),
@@ -98,7 +144,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('Category detail'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await _fetchItems();
+              },
               child: const Text('Items list'),
             ),
             ElevatedButton(
@@ -110,12 +158,16 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.black87,
             ),
             const SizedBox(height: 8),
-            Container(
+            const SizedBox(
               width: double.infinity,
-              child: const Text("Result:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+              child: Text("Result:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             ),
             const SizedBox(height: 16),
-            Text(_message),
+            _isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(color: Colors.blue),
+                  )
+                : Text(_message),
           ],
         ),
       ),

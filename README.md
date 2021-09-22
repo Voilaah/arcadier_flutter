@@ -34,7 +34,7 @@ final userToken = await arcadier.token.forUser("john@email.com", "mypassword");
 // retrieve a user info
 final user = await arcadier.user(userId);
 
-// retrieve items
+// retrieve all items
 final items = await arcadier.items.query();
 final items = await arcadier.items.query(limit: 20);
 final items = await arcadier.items.query(limit: 20, page: 1);
@@ -44,12 +44,8 @@ final items = await arcadier.items.query(orderBy: "name", order: "asc");
 // retrieve an item
 final item = await arcadier.item(itemId);
 
-// retrieve categories
+// retrieve all categories
 final categories = await arcadier.categories.query();
-
-// retrieve a category
-final category = await arcadier.category(categoryId);
-
 
 
 ```

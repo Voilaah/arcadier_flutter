@@ -6,8 +6,8 @@ class PriceRange {
     required this.maximum,
   });
 
-  int minimum;
-  int maximum;
+  double minimum;
+  double maximum;
 
   factory PriceRange.fromJson(Map<String, dynamic> json) => PriceRange(
         minimum: json["Minimum"],

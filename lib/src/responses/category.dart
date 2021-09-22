@@ -20,8 +20,8 @@ class Category {
   String name;
   String? description;
   int sortOrder;
-  List<Media> media = [];
-  String parentCategoryId;
+  List<Media>? media = [];
+  String? parentCategoryId;
   dynamic childCategories;
   dynamic level;
   int createdDateTime;
