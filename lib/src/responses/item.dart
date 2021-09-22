@@ -106,7 +106,7 @@ class Item {
   int createdDateTime;
   int modifiedDateTime;
   bool hasChildItems;
-  List<dynamic>? childItems;
+  List<Item>? childItems;
   List<dynamic>? addOns;
   dynamic serviceBookingUnitGuid;
   dynamic bookingUnit;
@@ -160,7 +160,7 @@ class Item {
         createdDateTime: json["CreatedDateTime"],
         modifiedDateTime: json["ModifiedDateTime"],
         hasChildItems: json["HasChildItems"],
-        childItems: json["ChildItems"] != null ? List<dynamic>.from(json["ChildItems"].map((x) => x)) : [],
+        childItems: json["ChildItems"] != null ? List<Item>.from(json["ChildItems"].map((x) => x)) : [],
         addOns: json["AddOns"] != null ? List<dynamic>.from(json["AddOns"].map((x) => x)) : [],
         serviceBookingUnitGuid: json["ServiceBookingUnitGuid"],
         bookingUnit: json["BookingUnit"],

@@ -92,6 +92,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _fetchItem(itemId) async {
+    setState(() {
+      _isLoading = true;
+    });
+    final item = await arcadier.item(itemId);
+    String msg = item.id + ':' + item.name;
+    print(msg);
+    _setMessage(msg);
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   _fetchItems({
     int? page,
     int? perPage,
@@ -208,7 +221,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('Search Items with search term'),
             ),
             ElevatedButton(
-              onPressed: () async {},
+              onPressed: () async {
+                await _fetchItem("121b852a-6fd3-4627-bd34-27f95cc569e7");
+              },
               child: const Text('Item detail'),
             ),
             const Divider(
