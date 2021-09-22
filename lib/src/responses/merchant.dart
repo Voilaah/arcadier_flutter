@@ -1,17 +1,9 @@
 part of '../responses.dart';
 
-// To parse this JSON data, do
-//
-//     final user = userFromJson(jsonString);
-
-User userFromJson(String str) => User.fromJson(json.decode(str));
-
-String userToJson(User data) => json.encode(data.toJson());
-
-class User {
-  User({
+class MerchantDetail {
+  MerchantDetail({
     required this.id,
-    this.userName = null,
+    this.userName,
     required this.email,
     required this.firstName,
     required this.lastName,
@@ -19,30 +11,27 @@ class User {
     this.description,
     this.dob,
     required this.phoneNumber,
-    required this.dateJoined,
+    this.dateJoined,
     this.roles,
-    this.media,
-    required this.customFields,
-    required this.timeZone,
-    required this.onboarded,
-    required this.onboardedDateTime,
-    required this.active,
-    required this.enabled,
-    required this.visible,
-    required this.guest,
-    required this.addresses,
-    required this.paymentMethods,
-    required this.paymentAcceptanceMethods,
-    required this.userLogins,
-    required this.adminOwnerId,
-    required this.languageCode,
-    required this.accountOwnerId,
-    required this.permissions,
+    required this.media,
+    this.customFields,
+    this.timeZone,
+    this.onboarded,
+    this.onboardedDateTime,
+    this.active,
+    this.enabled,
+    this.visible,
+    this.guest,
+    this.addresses,
+    this.paymentMethods,
+    this.paymentAcceptanceMethods,
+    this.userLogins,
+    this.adminOwnerId,
+    this.languageCode,
+    this.accountOwnerId,
+    this.permissions,
     required this.totalSuccessfulOrderCount,
-  }) {
-    roles = [];
-    media = [];
-  }
+  });
 
   String id;
   String? userName;
@@ -53,17 +42,17 @@ class User {
   String? description;
   dynamic dob;
   String phoneNumber;
-  int dateJoined;
-  List<String>? roles = [];
-  List<Media>? media = [];
+  dynamic dateJoined;
+  dynamic roles;
+  List<Media> media;
   dynamic customFields;
   dynamic timeZone;
-  bool onboarded;
-  int onboardedDateTime;
-  bool active;
-  bool enabled;
-  bool visible;
-  bool guest;
+  dynamic onboarded;
+  dynamic onboardedDateTime;
+  dynamic active;
+  dynamic enabled;
+  dynamic visible;
+  dynamic guest;
   dynamic addresses;
   dynamic paymentMethods;
   dynamic paymentAcceptanceMethods;
@@ -74,7 +63,7 @@ class User {
   dynamic permissions;
   int totalSuccessfulOrderCount;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory MerchantDetail.fromJson(Map<String, dynamic> json) => MerchantDetail(
         id: json["ID"],
         userName: json["UserName"],
         email: json["Email"],
@@ -85,8 +74,8 @@ class User {
         dob: json["DOB"],
         phoneNumber: json["PhoneNumber"],
         dateJoined: json["DateJoined"],
-        roles: List<String>.from(json["Roles"].map((x) => x)),
-        media: List<Media>.from(json["Media"].map((x) => x)),
+        roles: json["Roles"],
+        media: List<Media>.from(json["Media"].map((x) => Media.fromJson(x))),
         customFields: json["CustomFields"],
         timeZone: json["TimeZone"],
         onboarded: json["Onboarded"],
@@ -117,8 +106,8 @@ class User {
         "DOB": dob,
         "PhoneNumber": phoneNumber,
         "DateJoined": dateJoined,
-        "Roles": List<dynamic>.from(roles!.map((x) => x)),
-        "Media": List<dynamic>.from(media!.map((x) => x)),
+        "Roles": roles,
+        "Media": List<dynamic>.from(media.map((x) => x.toJson())),
         "CustomFields": customFields,
         "TimeZone": timeZone,
         "Onboarded": onboarded,

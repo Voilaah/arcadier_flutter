@@ -1,6 +1,7 @@
 library arcadier;
 
 import 'package:arcadier/src/resources/category_resource.dart';
+import 'package:arcadier/src/responses.dart';
 
 import 'src/client.dart';
 import 'src/resources/categories_resources.dart';
@@ -37,7 +38,11 @@ class Arcadier {
   // Resources
   late TokenResource token;
   late ItemsResource items;
-  late ItemResource item;
+  late ItemResource _item;
+  Future<Item> item(String id) async {
+    return await _item.get(id);
+  }
+
   late CategoriesResource categories;
   late CategoryResource category;
   late MarketplaceResource marketplace;
@@ -58,9 +63,9 @@ class Arcadier {
   _initResources() {
     token = TokenResource(_client, host, apiVersion);
     items = ItemsResource(_client, host, apiVersion);
-    item = ItemResource(_client, host, apiVersion);
+    _item = ItemResource(_client, host, apiVersion);
     marketplace = MarketplaceResource(_client, host, apiVersion);
-    // categories  = new CategoriesResource(_client, host, apiVersion);
-    // category  = new CategoryResource(_client, host, apiVersion);
+    categories = new CategoriesResource(_client, host, apiVersion);
+    category = new CategoryResource(_client, host, apiVersion);
   }
 }

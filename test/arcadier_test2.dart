@@ -19,7 +19,7 @@ void main() async {
 
   setUp(() {
     // setup mock
-    arcadier = Application.arcadier;
+    // arcadier = Application.arcadier;
   });
 
   tearDown(() {
