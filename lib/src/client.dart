@@ -24,9 +24,11 @@ class Client {
   set token(value) => _token = value;
 
   /// Makes a post request to [host] by following [path] with [data]
-  Future<Map<String, dynamic>> post(String host, final List<String> path, {final dynamic data}) async {
+  Future<Map<String, dynamic>> post(String host, final List<String> path,
+      {final dynamic data, dynamic extraHeaders}) async {
     final uri = createUri(host, path);
-    final headers = createHeader();
+    final headers = createHeader(extraHeaders);
+
     final response =
         await httpClient.post(uri, body: data, headers: headers).timeout(const Duration(seconds: 60), onTimeout: () {
       throw TimeoutException('The connection has timed out, Please try again!');
@@ -35,9 +37,9 @@ class Client {
   }
 
   /// Makes a get request from [host] by following [path]
-  Future<Map<String, dynamic>> get(String host, final List<String> path) async {
+  Future<Map<String, dynamic>> get(String host, final List<String> path, {dynamic extraHeaders}) async {
     final uri = createUri(host, path);
-    final headers = createHeader();
+    final headers = createHeader(extraHeaders);
     final response = await httpClient.get(uri, headers: headers).timeout(const Duration(seconds: 60), onTimeout: () {
       throw TimeoutException('The connection has timed out, Please try again!');
     });
@@ -61,7 +63,7 @@ class Client {
   }
 
   /// Create a header
-  Map<String, String> createHeader() {
+  Map<String, String> createHeader(dynamic extraHeaders) {
     final headers = <String, String>{
       // 'Authorization': this.basicAuth(),
       // 'Arcadier-Version': _apiVersion,
@@ -69,6 +71,7 @@ class Client {
       // 'Content-Type': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
     };
+    if (extraHeaders != null) headers.addEntries(extraHeaders.entries);
     if (null != token) {
       headers.addAll(bearerAuth());
     }

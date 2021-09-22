@@ -92,13 +92,44 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  _fetchItems() async {
+  _fetchItems({
+    int? page,
+    int? perPage,
+    String? sort,
+    String? search,
+    String? sellerId,
+    List<String>? categories,
+    String? minPrice,
+    String? maxPrice,
+    String? tax,
+    DateTime? createdStartDate,
+    DateTime? createdEndDate,
+    DateTime? updatedStartDate,
+    DateTime? updatedEndDate,
+  }) async {
     setState(() {
       _isLoading = true;
     });
-    final items = await arcadier.items.query();
+    final items = await arcadier.items.query(
+      page: page,
+      perPage: perPage,
+      sort: sort,
+      search: search,
+      sellerId: sellerId,
+      categories: categories,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      tax: tax,
+      createdStartDate: createdStartDate,
+      createdEndDate: createdEndDate,
+      updatedStartDate: updatedStartDate,
+      updatedEndDate: updatedEndDate,
+    );
     String msg = "Nb items:${items.totalRecords}\n";
-    msg = msg + items.records.map((x) => x.name).toString();
+    msg = msg +
+        items.records.map((x) {
+          return x.id + ':' + x.name;
+        }).toString();
     print(msg);
     _setMessage(msg);
     setState(() {
@@ -112,7 +143,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     final categories = await arcadier.categories.query();
     String msg = "Nb categories:${categories.totalRecords}\n";
-    msg = msg + categories.records.map((x) => x.name).toString();
+    msg = msg +
+        categories.records.map((x) {
+          return x.id + ':' + x.name;
+        }).toString();
     print(msg);
     _setMessage(msg);
     setState(() {
@@ -160,6 +194,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 await _fetchItems();
               },
               child: const Text('Items list'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await _fetchItems(categories: ['862e7995-3d18-427e-a906-31902d55c11d']);
+              },
+              child: const Text('List Items for categoryId'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await _fetchItems(search: "Flutter");
+              },
+              child: const Text('Search Items with search term'),
             ),
             ElevatedButton(
               onPressed: () async {},
