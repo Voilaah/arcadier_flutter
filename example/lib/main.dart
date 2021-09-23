@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arcadier/arcadier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -45,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _message = "";
   int _page = 1;
   bool _isLoading = false;
-
+  var encoder = const JsonEncoder.withIndent('  ');
   Arcadier arcadier = Application.arcadier;
   List<Item> _products = [];
 
@@ -53,13 +55,18 @@ class _MyHomePageState extends State<MyHomePage> {
     _message = str;
   }
 
+  String _prettyPrint(jsonObject) {
+    return encoder.convert(jsonObject);
+  }
+
   _adminToken() async {
     setState(() {
       _isLoading = true;
     });
     final token = await arcadier.token.forAdmin();
-    _setMessage(token.accessToken);
-    print(token.accessToken);
+    String msg = _prettyPrint(token);
+    _setMessage(msg);
+    print(msg);
     setState(() {
       _isLoading = false;
     });
@@ -71,8 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     final token =
         await arcadier.token.forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
-    _setMessage(token.accessToken);
-    print(token.accessToken);
+    String msg = _prettyPrint(token);
+    _setMessage(msg);
+    print(msg);
     setState(() {
       _isLoading = false;
     });
@@ -85,8 +93,9 @@ class _MyHomePageState extends State<MyHomePage> {
     final token =
         await arcadier.token.forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
     final user = await arcadier.user(token.userId);
-    print("userId: ${token.userId}, user displayname: ${user.email}");
-    _setMessage(token.userId + '\n' + user.email);
+    String msg = _prettyPrint(user);
+    _setMessage(msg);
+    print(msg);
     setState(() {
       _isLoading = false;
     });
@@ -97,9 +106,9 @@ class _MyHomePageState extends State<MyHomePage> {
       _isLoading = true;
     });
     final item = await arcadier.item(itemId);
-    String msg = item.id + ':' + item.name;
-    print(msg);
+    String msg = _prettyPrint(item);
     _setMessage(msg);
+    print(msg);
     setState(() {
       _isLoading = false;
     });
@@ -145,6 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
         }).toString();
     print(msg);
     _setMessage(msg);
+    // String msg = _prettyPrint(items);
+    // _setMessage(msg);
+    // print(msg);
     setState(() {
       _isLoading = false;
     });
@@ -162,6 +174,9 @@ class _MyHomePageState extends State<MyHomePage> {
         }).toString();
     print(msg);
     _setMessage(msg);
+    // String msg = _prettyPrint(catgories);
+    // _setMessage(msg);
+    // print(msg);
     setState(() {
       _isLoading = false;
     });
@@ -173,75 +188,77 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Wrap(
-          spacing: 6,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () async {
-                await _adminToken();
-              },
-              child: const Text('Admin token'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await _userToken();
-              },
-              child: const Text('User token'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await _fetchUser();
-              },
-              child: const Text('User Info'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await _fetchCategories();
-              },
-              child: const Text('Categories list'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await _fetchItems();
-              },
-              child: const Text('Items list'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await _fetchItems(categories: ['862e7995-3d18-427e-a906-31902d55c11d']);
-              },
-              child: const Text('List Items for categoryId'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await _fetchItems(search: "Flutter");
-              },
-              child: const Text('Search Items with search term'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await _fetchItem("121b852a-6fd3-4627-bd34-27f95cc569e7");
-              },
-              child: const Text('Item detail'),
-            ),
-            const Divider(
-              height: 20,
-              color: Colors.black87,
-            ),
-            const SizedBox(height: 8),
-            const SizedBox(
-              width: double.infinity,
-              child: Text("Result:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-            ),
-            const SizedBox(height: 16),
-            _isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(color: Colors.blue),
-                  )
-                : Text(_message),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Wrap(
+            spacing: 6,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () async {
+                  await _adminToken();
+                },
+                child: const Text('Admin token'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _userToken();
+                },
+                child: const Text('User token'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _fetchUser();
+                },
+                child: const Text('User Info'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _fetchCategories();
+                },
+                child: const Text('Categories list'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _fetchItems();
+                },
+                child: const Text('Items list'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _fetchItems(categories: ['862e7995-3d18-427e-a906-31902d55c11d']);
+                },
+                child: const Text('List Items for categoryId'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _fetchItems(search: "Flutter");
+                },
+                child: const Text('Search Items with search term'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _fetchItem("121b852a-6fd3-4627-bd34-27f95cc569e7");
+                },
+                child: const Text('Item detail'),
+              ),
+              const Divider(
+                height: 20,
+                color: Colors.black87,
+              ),
+              const SizedBox(height: 8),
+              const SizedBox(
+                width: double.infinity,
+                child: Text("Result:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+              ),
+              const SizedBox(height: 16),
+              _isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(color: Colors.blue),
+                    )
+                  : Text(_message),
+            ],
+          ),
         ),
       ),
     );
