@@ -86,6 +86,21 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _registerUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final adminToken = await arcadier.token.forAdmin();
+    final userToken = await arcadier.user
+        .register('test31@gmail.com', 'ChangeMeNow!', 'ChangeMeNow!', adminToken: adminToken.accessToken);
+    String msg = _prettyPrint(userToken);
+    _setMessage(msg);
+    print(msg);
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   _fetchUser() async {
     setState(() {
       _isLoading = true;
@@ -229,6 +244,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   await _userToken();
                 },
                 child: const Text('User token'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _registerUser();
+                },
+                child: const Text('Register User'),
               ),
               ElevatedButton(
                 onPressed: () async {
