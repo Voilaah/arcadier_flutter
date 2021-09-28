@@ -102,12 +102,14 @@ class Client {
       // Throwing later.
     }
     if (responseStatusCode != 200) {
-      if (map == null || map['error'] == null) {
+      if (map == null || (map['error'] == null && map['Message'] == null)) {
         throw UnknownTypeException('The status code returned was $responseStatusCode but no error was provided.');
       }
 
       if (map != null && map['error'] != null) {
         throw InvalidRequestException(responseStatusCode.toString(), map['error'].toString());
+      } else if (map != null && map['Message'] != null) {
+        throw InvalidRequestException(responseStatusCode.toString(), map['Message'].toString());
       } else {
         throw UnknownTypeException('The status code returned was $responseStatusCode but the error type is unknown.');
       }

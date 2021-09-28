@@ -13,19 +13,19 @@ class User {
     required this.id,
     this.userName = null,
     required this.email,
-    required this.firstName,
-    required this.lastName,
-    required this.displayName,
+    this.firstName,
+    this.lastName,
+    this.displayName,
     this.description,
     this.dob,
-    required this.phoneNumber,
+    this.phoneNumber,
     required this.dateJoined,
     this.roles,
     this.media,
     required this.customFields,
     required this.timeZone,
     required this.onboarded,
-    required this.onboardedDateTime,
+    this.onboardedDateTime,
     required this.active,
     required this.enabled,
     required this.visible,
@@ -47,19 +47,19 @@ class User {
   String id;
   String? userName;
   String email;
-  String firstName;
-  String lastName;
-  String displayName;
+  String? firstName;
+  String? lastName;
+  String? displayName;
   String? description;
-  dynamic dob;
-  String phoneNumber;
+  dynamic? dob;
+  String? phoneNumber;
   int dateJoined;
   List<String>? roles = [];
   List<Media>? media = [];
   dynamic customFields;
   dynamic timeZone;
   bool onboarded;
-  int onboardedDateTime;
+  int? onboardedDateTime;
   bool active;
   bool enabled;
   bool visible;
@@ -78,9 +78,9 @@ class User {
         id: json["ID"],
         userName: json["UserName"],
         email: json["Email"],
-        firstName: json["FirstName"],
-        lastName: json["LastName"],
-        displayName: json["DisplayName"],
+        firstName: json["FirstName"] ?? json["FirstName"],
+        lastName: json["LastName"] ?? json["LastName"],
+        displayName: json["DisplayName"] ?? json["DisplayName"],
         description: json["Description"],
         dob: json["DOB"],
         phoneNumber: json["PhoneNumber"],

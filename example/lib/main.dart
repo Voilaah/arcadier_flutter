@@ -50,6 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
   var encoder = const JsonEncoder.withIndent('  ');
   Arcadier arcadier = Application.arcadier;
   List<Item> _products = [];
+  Token? _adminToken;
+
+  get adminToken async {
+    if (_adminToken != null) {
+      return _adminToken;
+    }
+    _adminToken = await arcadier.token.forAdmin();
+    return _adminToken;
+  }
 
   void _setMessage(String str) {
     _message = str;
@@ -59,11 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return encoder.convert(jsonObject);
   }
 
-  _adminToken() async {
+  _getAdminToken() async {
     setState(() {
       _isLoading = true;
     });
-    final token = await arcadier.token.forAdmin();
+    final token = await adminToken;
     String msg = _prettyPrint(token);
     _setMessage(msg);
     print(msg);
@@ -90,12 +99,18 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _isLoading = true;
     });
-    final adminToken = await arcadier.token.forAdmin();
-    final userToken = await arcadier.user
-        .register('test31@gmail.com', 'ChangeMeNow!', 'ChangeMeNow!', adminToken: adminToken.accessToken);
-    String msg = _prettyPrint(userToken);
-    _setMessage(msg);
-    print(msg);
+
+    final token = await adminToken;
+    try {
+      final userToken = await arcadier.user
+          .register('test31@gmail.com', 'ChangeMeNow!', 'ChangeMeNow!', adminToken: token.accessToken);
+      String msg = _prettyPrint(userToken);
+      _setMessage(msg);
+      print(msg);
+    } catch (e) {
+      _setMessage(e.toString());
+      print(e.toString());
+    }
     setState(() {
       _isLoading = false;
     });
@@ -135,6 +150,34 @@ class _MyHomePageState extends State<MyHomePage> {
     String msg = _prettyPrint(updatedUser);
     _setMessage(msg);
     print(msg);
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  _promoteUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final aToken = await adminToken;
+
+    try {
+      // register a new user buyer
+      final newUser = await arcadier.user
+          .register("newbuyer17@gmail.com", 'ChangeMeNow!', 'ChangeMeNow!', adminToken: aToken.accessToken);
+
+      final result =
+          await arcadier.user.promote(newUser.userId, adminId: aToken.userId, adminToken: aToken.accessToken);
+
+      final newMerchant = await arcadier.user.get(newUser.userId);
+      String msg = _prettyPrint(newMerchant);
+      _setMessage(msg);
+      print(msg);
+    } catch (e) {
+      _setMessage(e.toString());
+      print(e.toString());
+    }
     setState(() {
       _isLoading = false;
     });
@@ -235,7 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: () async {
-                  await _adminToken();
+                  await _getAdminToken();
                 },
                 child: const Text('Admin token'),
               ),
@@ -262,6 +305,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   await _updateUser();
                 },
                 child: const Text('Update User Info'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _promoteUser();
+                },
+                child: const Text('Promote User to merchant'),
               ),
               ElevatedButton(
                 onPressed: () async {

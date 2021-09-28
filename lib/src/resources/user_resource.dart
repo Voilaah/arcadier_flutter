@@ -51,9 +51,9 @@ class UserResource extends Resource {
       'Content-Type': 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $adminToken',
     };
-    final payload = {};
+    final payload = {'userId': userId};
     final response = await client.put(host, ['api/${apiVersion}/admins/$adminId/users/$userId/roles/$newRole'],
-        data: payload, extraHeaders: extraHeaders);
+        data: json.encode(payload), extraHeaders: extraHeaders);
     return Result.fromJson(response);
   }
 }
