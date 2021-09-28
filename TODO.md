@@ -1,4 +1,4 @@
-### TodO List
+### Todo List
 
 Based on https://apiv2.arcadier.com/
 
@@ -9,7 +9,11 @@ Based on https://apiv2.arcadier.com/
   - [ ] Addresses
 - [ ] Marketplace
   - [ ] settings
+- [ ] Category
+  - [x] retrieve flat category list
+  - [ ] retrieve hierarchic category list
 - [ ] Items
+  - [x] retrieve items list
   - [ ] Merchant create/update/delete item
   - [ ] search v2
   - [ ] Handling variants
