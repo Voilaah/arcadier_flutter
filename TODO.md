@@ -2,10 +2,13 @@
 
 Based on https://apiv2.arcadier.com/
 
+TODO
+
 - [ ] User
   - [x] Login with username/password (Buyer/Password)
-  - [ ] Register Buyer account
-  - [ ] Register Merchant account
+  - [x] Register User (Buyer) account
+  - [x] Update User account information
+  - [x] Register Merchant account (steps: Register Buyer account then promote his role to merchant)
   - [ ] Addresses
 - [ ] Marketplace
   - [ ] settings

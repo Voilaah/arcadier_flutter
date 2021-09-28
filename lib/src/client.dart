@@ -36,6 +36,19 @@ class Client {
     return processResponse(response);
   }
 
+  /// Makes a put request to [host] by following [path] with [data]
+  Future<Map<String, dynamic>> put(String host, final List<String> path,
+      {final dynamic data, dynamic extraHeaders}) async {
+    final uri = createUri(host, path);
+    final headers = createHeader(extraHeaders);
+
+    final response =
+        await httpClient.put(uri, body: data, headers: headers).timeout(const Duration(seconds: 60), onTimeout: () {
+      throw TimeoutException('The connection has timed out, Please try again!');
+    });
+    return processResponse(response);
+  }
+
   /// Makes a get request from [host] by following [path]
   Future<Map<String, dynamic>> get(String host, final List<String> path, {dynamic extraHeaders}) async {
     final uri = createUri(host, path);

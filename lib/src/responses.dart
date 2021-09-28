@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+part './responses/result.dart';
 part './responses/token.dart';
 part './responses/media.dart';
 part './responses/meta.dart';
