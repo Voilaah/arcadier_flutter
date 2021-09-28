@@ -92,8 +92,32 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     final token =
         await arcadier.token.forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
-    final user = await arcadier.user(token.userId);
+    final user = await arcadier.user.get(token.userId);
     String msg = _prettyPrint(user);
+    _setMessage(msg);
+    print(msg);
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  _updateUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final token =
+        await arcadier.token.forUser(dotenv.get('USER_NAME', fallback: ''), dotenv.get('USER_PASSWORD', fallback: ''));
+    final user = await arcadier.user.get(token.userId);
+
+    //create a UserRequest from the user response
+    // and change DisplayName and PhoneNumber
+    final userRequest = UserRequest(
+      displayName: "new display name",
+      phoneNumber: "0102030405",
+    );
+    final updatedUser = await arcadier.user.update(user.id, userRequest, token: token.accessToken);
+
+    String msg = _prettyPrint(updatedUser);
     _setMessage(msg);
     print(msg);
     setState(() {
@@ -211,6 +235,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   await _fetchUser();
                 },
                 child: const Text('User Info'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await _updateUser();
+                },
+                child: const Text('Update User Info'),
               ),
               ElevatedButton(
                 onPressed: () async {

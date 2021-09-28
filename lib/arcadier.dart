@@ -14,6 +14,7 @@ import 'src/responses.dart';
 
 // Make the Response Models visible from outside the library
 export 'src/responses.dart';
+export 'src/requests.dart';
 
 const String _VERSION = "0.1.0";
 
@@ -49,6 +50,7 @@ class Arcadier {
   late ItemResource _item;
   late CategoryResource _category;
   late UserResource _user;
+  late UserResource user;
 
   // Constructor
   Arcadier({required this.host, required this.clientId, required this.clientSecret, this.apiVersion = 'v2'}) {
@@ -66,7 +68,8 @@ class Arcadier {
     //
     token = TokenResource(_client, host, apiVersion);
     _item = ItemResource(_client, host, apiVersion);
-    _user = UserResource(_client, host, apiVersion);
+    // _user = UserResource(_client, host, apiVersion);
+    user = UserResource(_client, host, apiVersion);
     _category = CategoryResource(_client, host, apiVersion);
   }
 
@@ -74,7 +77,7 @@ class Arcadier {
     return await _item.get(id);
   }
 
-  Future<User> user(String id) async {
-    return await _user.get(id);
-  }
+  // Future<User> user(String id) async {
+  //   return await _user.get(id);
+  // }
 }

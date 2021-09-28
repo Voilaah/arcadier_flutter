@@ -39,8 +39,8 @@ class UserResource extends Resource {
       HttpHeaders.authorizationHeader: 'Bearer $token',
     };
     final payload = userRequest.toJson();
-    final response =
-        await client.put(host, ['api/${apiVersion}/users/$userId'], data: payload, extraHeaders: extraHeaders);
+    final response = await client.put(host, ['api/${apiVersion}/users/$userId'],
+        data: json.encode(payload), extraHeaders: extraHeaders);
     return User.fromJson(response);
   }
 

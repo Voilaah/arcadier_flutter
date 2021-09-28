@@ -10,32 +10,32 @@ String userRequestToJson(UserRequest data) => json.encode(data.toJson());
 
 class UserRequest {
   UserRequest({
-    required this.email,
-    required this.firstName,
-    required this.lastName,
-    required this.displayName,
-    required this.description,
-    required this.phoneNumber,
-    required this.media,
-    required this.customFields,
-    required this.timeZone,
-    required this.active,
-    required this.enabled,
-    required this.visible,
+    this.email,
+    this.firstName,
+    this.lastName,
+    this.displayName,
+    this.description,
+    this.phoneNumber,
+    this.media,
+    this.customFields,
+    this.timeZone,
+    this.active,
+    this.enabled,
+    this.visible,
   });
 
-  String email;
-  String firstName;
-  String lastName;
-  String displayName;
-  String description;
-  String phoneNumber;
-  List<Media> media;
-  List<CustomField> customFields;
-  String timeZone;
-  bool active;
-  bool enabled;
-  bool visible;
+  String? email;
+  String? firstName;
+  String? lastName;
+  String? displayName;
+  String? description;
+  String? phoneNumber;
+  List<Media>? media;
+  List<CustomField>? customFields;
+  String? timeZone;
+  bool? active;
+  bool? enabled;
+  bool? visible;
 
   factory UserRequest.fromJson(Map<String, dynamic> json) => UserRequest(
         email: json["Email"],
@@ -59,8 +59,8 @@ class UserRequest {
         "DisplayName": displayName,
         "Description": description,
         "PhoneNumber": phoneNumber,
-        "Media": List<dynamic>.from(media.map((x) => x.toJson())),
-        "CustomFields": List<dynamic>.from(customFields.map((x) => x.toJson())),
+        "Media": media != null ? List<dynamic>.from(media!.map((x) => x.toJson())) : null,
+        "CustomFields": customFields != null ? List<dynamic>.from(customFields!.map((x) => x.toJson())) : null,
         "TimeZone": timeZone,
         "Active": active,
         "Enabled": enabled,
