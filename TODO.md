@@ -9,6 +9,7 @@ TODO
   - [x] Register User (Buyer) account
   - [x] Update User account information
   - [x] Register Merchant account (steps: Register Buyer account then promote his role to merchant)
+    - [ ] grabbing the new provided accessToken from the Result
   - [ ] Addresses
 - [ ] Marketplace
   - [ ] settings

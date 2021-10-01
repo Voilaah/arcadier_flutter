@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       // register a new user buyer
       final newUser = await arcadier.user
-          .register("newbuyer17@gmail.com", 'ChangeMeNow!', 'ChangeMeNow!', adminToken: aToken.accessToken);
+          .register("newmerchant@gmail.com", 'ChangeMeNow!', 'ChangeMeNow!', adminToken: aToken.accessToken);
 
       final result =
           await arcadier.user.promote(newUser.userId, adminId: aToken.userId, adminToken: aToken.accessToken);

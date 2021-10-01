@@ -54,6 +54,9 @@ class UserResource extends Resource {
     final payload = {'userId': userId};
     final response = await client.put(host, ['api/${apiVersion}/admins/$adminId/users/$userId/roles/$newRole'],
         data: json.encode(payload), extraHeaders: extraHeaders);
+    // print('-----------');
+    // print(response);
+    // print('-----------');
     return Result.fromJson(response);
   }
 }
