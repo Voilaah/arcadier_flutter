@@ -1,7 +1,7 @@
 part of '../responses.dart';
 
-class CustomFieldResponse {
-  CustomFieldResponse({
+class ArcadierCustomField {
+  ArcadierCustomField({
     required this.code,
     required this.name,
     required this.dataFieldType,
@@ -15,7 +15,7 @@ class CustomFieldResponse {
   List<String> values;
   bool isComparable;
 
-  factory CustomFieldResponse.fromJson(Map<String, dynamic> json) => CustomFieldResponse(
+  factory ArcadierCustomField.fromJson(Map<String, dynamic> json) => ArcadierCustomField(
         code: json["Code"],
         name: json["Name"],
         dataFieldType: json["DataFieldType"],

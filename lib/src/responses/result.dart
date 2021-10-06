@@ -1,19 +1,19 @@
 part of '../responses.dart';
 
-ResultResponse resultFromJson(String str) => ResultResponse.fromJson(json.decode(str));
+ArcadierResult resultFromJson(String str) => ArcadierResult.fromJson(json.decode(str));
 
-String resultToJson(ResultResponse data) => json.encode(data.toJson());
+String resultToJson(ArcadierResult data) => json.encode(data.toJson());
 
-class ResultResponse {
-  ResultResponse({
+class ArcadierResult {
+  ArcadierResult({
     required this.result,
     this.accessToken,
   });
 
   bool result;
-  TokenResponse? accessToken;
+  ArcadierToken? accessToken;
 
-  factory ResultResponse.fromJson(Map<String, dynamic> json) => ResultResponse(
+  factory ArcadierResult.fromJson(Map<String, dynamic> json) => ArcadierResult(
         result: json["Result"],
         // accessToken: json["AccessToken"] ? Token.fromJson(json["AccessToken"]) : null,
       );

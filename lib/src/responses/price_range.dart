@@ -1,7 +1,7 @@
 part of '../responses.dart';
 
-class PriceRangeResponse {
-  PriceRangeResponse({
+class ArcadierPriceRange {
+  ArcadierPriceRange({
     required this.minimum,
     required this.maximum,
   });
@@ -9,7 +9,7 @@ class PriceRangeResponse {
   double minimum;
   double maximum;
 
-  factory PriceRangeResponse.fromJson(Map<String, dynamic> json) => PriceRangeResponse(
+  factory ArcadierPriceRange.fromJson(Map<String, dynamic> json) => ArcadierPriceRange(
         minimum: json["Minimum"],
         maximum: json["Maximum"],
       );

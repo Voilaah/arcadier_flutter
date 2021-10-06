@@ -1,11 +1,11 @@
 part of '../responses.dart';
 
-TokenResponse tokenFromJson(String str) => TokenResponse.fromJson(json.decode(str));
+ArcadierToken tokenFromJson(String str) => ArcadierToken.fromJson(json.decode(str));
 
-String tokenToJson(TokenResponse data) => json.encode(data.toJson());
+String tokenToJson(ArcadierToken data) => json.encode(data.toJson());
 
-class TokenResponse {
-  TokenResponse({
+class ArcadierToken {
+  ArcadierToken({
     required this.accessToken,
     required this.tokenType,
     required this.expiresIn,
@@ -19,7 +19,7 @@ class TokenResponse {
   final String refreshToken;
   final String userId;
 
-  factory TokenResponse.fromJson(Map<String, dynamic> json) => TokenResponse(
+  factory ArcadierToken.fromJson(Map<String, dynamic> json) => ArcadierToken(
         accessToken: json["access_token"],
         tokenType: json["token_type"],
         expiresIn: json["expires_in"],

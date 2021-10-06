@@ -5,9 +5,9 @@ import '../client.dart';
 class CategoriesResource extends Resource {
   CategoriesResource(Client client, String host, String apiVersion) : super(client, host, apiVersion);
 
-  Future<CategoriesResponse> query() async {
+  Future<ArcadierCategories> query() async {
     final data = {};
     final response = await client.get(host, ['api/${apiVersion}/categories']);
-    return CategoriesResponse.fromJson(response);
+    return ArcadierCategories.fromJson(response);
   }
 }

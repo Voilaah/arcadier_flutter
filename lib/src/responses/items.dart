@@ -4,12 +4,12 @@ part of '../responses.dart';
 //
 //     final items = itemsFromJson(jsonString);
 
-ItemsResponse itemsFromJson(String str) => ItemsResponse.fromJson(json.decode(str));
+ArcadierItems itemsFromJson(String str) => ArcadierItems.fromJson(json.decode(str));
 
-String itemsToJson(ItemsResponse data) => json.encode(data.toJson());
+String itemsToJson(ArcadierItems data) => json.encode(data.toJson());
 
-class ItemsResponse {
-  ItemsResponse({
+class ArcadierItems {
+  ArcadierItems({
     required this.totalRecords,
     required this.pageNumber,
     required this.pageSize,
@@ -20,15 +20,15 @@ class ItemsResponse {
   int totalRecords;
   int pageNumber;
   int pageSize;
-  List<ItemResponse> records = [];
-  MetaResponse meta;
+  List<ArcadierItem> records = [];
+  ArcadierMeta meta;
 
-  factory ItemsResponse.fromJson(Map<String, dynamic> json) => ItemsResponse(
+  factory ArcadierItems.fromJson(Map<String, dynamic> json) => ArcadierItems(
         totalRecords: json["TotalRecords"],
         pageNumber: json["PageNumber"],
         pageSize: json["PageSize"],
-        records: List<ItemResponse>.from(json["Records"].map((x) => ItemResponse.fromJson(x))),
-        meta: MetaResponse.fromJson(json["Meta"]),
+        records: List<ArcadierItem>.from(json["Records"].map((x) => ArcadierItem.fromJson(x))),
+        meta: ArcadierMeta.fromJson(json["Meta"]),
       );
 
   Map<String, dynamic> toJson() => {

@@ -1,3 +1,3 @@
 part of '../responses.dart';
 
-class MerchantsResponse {}
+class ArcadierMerchants {}

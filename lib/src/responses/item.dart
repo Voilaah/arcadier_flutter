@@ -4,12 +4,12 @@ part of '../responses.dart';
 //
 //     final item = itemFromJson(jsonString);
 
-ItemResponse itemFromJson(String str) => ItemResponse.fromJson(json.decode(str));
+ArcadierItem itemFromJson(String str) => ArcadierItem.fromJson(json.decode(str));
 
-String itemToJson(ItemResponse data) => json.encode(data.toJson());
+String itemToJson(ArcadierItem data) => json.encode(data.toJson());
 
-class ItemResponse {
-  ItemResponse({
+class ArcadierItem {
+  ArcadierItem({
     required this.id,
     this.sku,
     required this.name,
@@ -93,27 +93,27 @@ class ItemResponse {
   bool instantBuy;
   bool negotiation;
   dynamic keywords;
-  MerchantDetail merchantDetail;
+  ArcadierMerchant merchantDetail;
   dynamic location;
-  List<CategoryResponse> categories;
+  List<ArcadierCategory> categories;
   List<dynamic> shippingMethods;
   List<dynamic> pickupAddresses;
-  List<MediaResponse> media;
+  List<ArcadierMedia> media;
   dynamic tags;
   dynamic scheduler;
   dynamic distance;
-  List<CustomFieldResponse> customFields;
+  List<ArcadierCustomField> customFields;
   int createdDateTime;
   int modifiedDateTime;
   bool hasChildItems;
-  List<ItemResponse>? childItems;
+  List<ArcadierItem>? childItems;
   List<dynamic>? addOns;
   dynamic serviceBookingUnitGuid;
   dynamic bookingUnit;
   dynamic durationUnit;
   bool isLocked;
 
-  factory ItemResponse.fromJson(Map<String, dynamic> json) => ItemResponse(
+  factory ArcadierItem.fromJson(Map<String, dynamic> json) => ArcadierItem(
         id: json["ID"],
         sku: json["SKU"],
         name: json["Name"],
@@ -145,23 +145,23 @@ class ItemResponse {
         instantBuy: json["InstantBuy"],
         negotiation: json["Negotiation"],
         keywords: json["Keywords"],
-        merchantDetail: MerchantDetail.fromJson(json["MerchantDetail"]),
+        merchantDetail: ArcadierMerchant.fromJson(json["MerchantDetail"]),
         location: json["Location"],
-        categories: List<CategoryResponse>.from(json["Categories"].map((x) => CategoryResponse.fromJson(x))),
+        categories: List<ArcadierCategory>.from(json["Categories"].map((x) => ArcadierCategory.fromJson(x))),
         shippingMethods:
             json["ShippingMethods"] != null ? List<dynamic>.from(json["ShippingMethods"].map((x) => x)) : [],
         pickupAddresses:
             json["PickupAddresses"] != null ? List<dynamic>.from(json["PickupAddresses"].map((x) => x)) : [],
         media:
-            json["Media"] != null ? List<MediaResponse>.from(json["Media"].map((x) => MediaResponse.fromJson(x))) : [],
+            json["Media"] != null ? List<ArcadierMedia>.from(json["Media"].map((x) => ArcadierMedia.fromJson(x))) : [],
         tags: json["Tags"],
         scheduler: json["Scheduler"],
         distance: json["Distance"],
-        customFields: List<CustomFieldResponse>.from(json["CustomFields"].map((x) => CustomFieldResponse.fromJson(x))),
+        customFields: List<ArcadierCustomField>.from(json["CustomFields"].map((x) => ArcadierCustomField.fromJson(x))),
         createdDateTime: json["CreatedDateTime"],
         modifiedDateTime: json["ModifiedDateTime"],
         hasChildItems: json["HasChildItems"],
-        childItems: json["ChildItems"] != null ? List<ItemResponse>.from(json["ChildItems"].map((x) => x)) : [],
+        childItems: json["ChildItems"] != null ? List<ArcadierItem>.from(json["ChildItems"].map((x) => x)) : [],
         addOns: json["AddOns"] != null ? List<dynamic>.from(json["AddOns"].map((x) => x)) : [],
         serviceBookingUnitGuid: json["ServiceBookingUnitGuid"],
         bookingUnit: json["BookingUnit"],

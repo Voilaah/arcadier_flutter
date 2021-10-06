@@ -1,14 +1,14 @@
 part of '../responses.dart';
 
-class MetaResponse {
-  MetaResponse({
+class ArcadierMeta {
+  ArcadierMeta({
     required this.priceRange,
   });
 
-  PriceRangeResponse priceRange;
+  ArcadierPriceRange priceRange;
 
-  factory MetaResponse.fromJson(Map<String, dynamic> json) => MetaResponse(
-        priceRange: PriceRangeResponse.fromJson(json["PriceRange"]),
+  factory ArcadierMeta.fromJson(Map<String, dynamic> json) => ArcadierMeta(
+        priceRange: ArcadierPriceRange.fromJson(json["PriceRange"]),
       );
 
   Map<String, dynamic> toJson() => {

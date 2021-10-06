@@ -1,7 +1,7 @@
 part of '../responses.dart';
 
-class MerchantDetail {
-  MerchantDetail({
+class ArcadierMerchant {
+  ArcadierMerchant({
     required this.id,
     this.userName,
     required this.email,
@@ -44,7 +44,7 @@ class MerchantDetail {
   String phoneNumber;
   dynamic dateJoined;
   dynamic roles;
-  List<MediaResponse> media;
+  List<ArcadierMedia> media;
   dynamic customFields;
   dynamic timeZone;
   dynamic onboarded;
@@ -63,7 +63,7 @@ class MerchantDetail {
   dynamic permissions;
   int totalSuccessfulOrderCount;
 
-  factory MerchantDetail.fromJson(Map<String, dynamic> json) => MerchantDetail(
+  factory ArcadierMerchant.fromJson(Map<String, dynamic> json) => ArcadierMerchant(
         id: json["ID"],
         userName: json["UserName"],
         email: json["Email"],
@@ -75,7 +75,7 @@ class MerchantDetail {
         phoneNumber: json["PhoneNumber"],
         dateJoined: json["DateJoined"],
         roles: json["Roles"],
-        media: List<MediaResponse>.from(json["Media"].map((x) => MediaResponse.fromJson(x))),
+        media: List<ArcadierMedia>.from(json["Media"].map((x) => ArcadierMedia.fromJson(x))),
         customFields: json["CustomFields"],
         timeZone: json["TimeZone"],
         onboarded: json["Onboarded"],

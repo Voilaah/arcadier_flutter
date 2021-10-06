@@ -1,7 +1,7 @@
 part of '../responses.dart';
 
-class CategoryResponse {
-  CategoryResponse({
+class ArcadierCategory {
+  ArcadierCategory({
     required this.id,
     required this.name,
     this.description,
@@ -20,7 +20,7 @@ class CategoryResponse {
   String name;
   String? description;
   int sortOrder;
-  List<MediaResponse>? media = [];
+  List<ArcadierMedia>? media = [];
   String? parentCategoryId;
   dynamic childCategories;
   dynamic level;
@@ -29,13 +29,13 @@ class CategoryResponse {
   dynamic commission;
   dynamic customFields;
 
-  factory CategoryResponse.fromJson(Map<String, dynamic> json) => CategoryResponse(
+  factory ArcadierCategory.fromJson(Map<String, dynamic> json) => ArcadierCategory(
         id: json["ID"],
         name: json["Name"],
         description: json["Description"],
         sortOrder: json["SortOrder"],
         media:
-            json["Media"] != null ? List<MediaResponse>.from(json["Media"].map((x) => MediaResponse.fromJson(x))) : [],
+            json["Media"] != null ? List<ArcadierMedia>.from(json["Media"].map((x) => ArcadierMedia.fromJson(x))) : [],
         parentCategoryId: json["ParentCategoryID"] == null ? null : json["ParentCategoryID"],
         childCategories: json["ChildCategories"],
         level: json["Level"],

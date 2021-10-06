@@ -4,12 +4,12 @@ part of '../responses.dart';
 //
 //     final user = userFromJson(jsonString);
 
-UserResponse userFromJson(String str) => UserResponse.fromJson(json.decode(str));
+ArcadierUser userFromJson(String str) => ArcadierUser.fromJson(json.decode(str));
 
-String userToJson(UserResponse data) => json.encode(data.toJson());
+String userToJson(ArcadierUser data) => json.encode(data.toJson());
 
-class UserResponse {
-  UserResponse({
+class ArcadierUser {
+  ArcadierUser({
     required this.id,
     this.userName = null,
     required this.email,
@@ -55,7 +55,7 @@ class UserResponse {
   String? phoneNumber;
   int dateJoined;
   List<String>? roles = [];
-  List<MediaResponse>? media = [];
+  List<ArcadierMedia>? media = [];
   dynamic customFields;
   dynamic timeZone;
   bool onboarded;
@@ -74,7 +74,7 @@ class UserResponse {
   dynamic permissions;
   int totalSuccessfulOrderCount;
 
-  factory UserResponse.fromJson(Map<String, dynamic> json) => UserResponse(
+  factory ArcadierUser.fromJson(Map<String, dynamic> json) => ArcadierUser(
         id: json["ID"],
         userName: json["UserName"],
         email: json["Email"],
@@ -86,7 +86,7 @@ class UserResponse {
         phoneNumber: json["PhoneNumber"],
         dateJoined: json["DateJoined"],
         roles: List<String>.from(json["Roles"].map((x) => x)),
-        media: List<MediaResponse>.from(json["Media"].map((x) => x)),
+        media: List<ArcadierMedia>.from(json["Media"].map((x) => x)),
         customFields: json["CustomFields"],
         timeZone: json["TimeZone"],
         onboarded: json["Onboarded"],

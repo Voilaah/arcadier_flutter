@@ -13,7 +13,7 @@ class ItemsResource extends Resource {
   // page: _page,
   // status: "publish",
   // stockStatus: "instock"
-  Future<ItemsResponse> query({
+  Future<ArcadierItems> query({
     int? page,
     int? perPage,
     String? sort,
@@ -50,6 +50,6 @@ class ItemsResource extends Resource {
       data: json.encode(payload),
       extraHeaders: extraHeaders,
     );
-    return ItemsResponse.fromJson(response);
+    return ArcadierItems.fromJson(response);
   }
 }

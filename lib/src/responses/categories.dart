@@ -4,12 +4,12 @@ part of '../responses.dart';
 //
 //     final categories = categoriesFromJson(jsonString);
 
-CategoriesResponse categoriesFromJson(String str) => CategoriesResponse.fromJson(json.decode(str));
+ArcadierCategories categoriesFromJson(String str) => ArcadierCategories.fromJson(json.decode(str));
 
-String categoriesToJson(CategoriesResponse data) => json.encode(data.toJson());
+String categoriesToJson(ArcadierCategories data) => json.encode(data.toJson());
 
-class CategoriesResponse {
-  CategoriesResponse({
+class ArcadierCategories {
+  ArcadierCategories({
     required this.totalRecords,
     required this.pageNumber,
     required this.pageSize,
@@ -20,15 +20,15 @@ class CategoriesResponse {
   int totalRecords;
   int pageNumber;
   int pageSize;
-  List<CategoryResponse> records;
-  MetaResponse? meta;
+  List<ArcadierCategory> records;
+  ArcadierMeta? meta;
 
-  factory CategoriesResponse.fromJson(Map<String, dynamic> json) => CategoriesResponse(
+  factory ArcadierCategories.fromJson(Map<String, dynamic> json) => ArcadierCategories(
         totalRecords: json["TotalRecords"],
         pageNumber: json["PageNumber"],
         pageSize: json["PageSize"],
-        records: List<CategoryResponse>.from(json["Records"].map((x) => CategoryResponse.fromJson(x))),
-        meta: (json["Meta"] != null && (json["Meta"] as Map).isNotEmpty) ? MetaResponse.fromJson(json["Meta"]) : null,
+        records: List<ArcadierCategory>.from(json["Records"].map((x) => ArcadierCategory.fromJson(x))),
+        meta: (json["Meta"] != null && (json["Meta"] as Map).isNotEmpty) ? ArcadierMeta.fromJson(json["Meta"]) : null,
       );
 
   Map<String, dynamic> toJson() => {

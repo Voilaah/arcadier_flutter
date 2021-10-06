@@ -30,8 +30,8 @@ class UserRequest {
   String? displayName;
   String? description;
   String? phoneNumber;
-  List<MediaResponse>? media;
-  List<CustomFieldResponse>? customFields;
+  List<ArcadierMedia>? media;
+  List<ArcadierCustomField>? customFields;
   String? timeZone;
   bool? active;
   bool? enabled;
@@ -44,8 +44,8 @@ class UserRequest {
         displayName: json["DisplayName"],
         description: json["Description"],
         phoneNumber: json["PhoneNumber"],
-        media: List<MediaResponse>.from(json["Media"].map((x) => MediaResponse.fromJson(x))),
-        customFields: List<CustomFieldResponse>.from(json["CustomFields"].map((x) => CustomFieldResponse.fromJson(x))),
+        media: List<ArcadierMedia>.from(json["Media"].map((x) => ArcadierMedia.fromJson(x))),
+        customFields: List<ArcadierCustomField>.from(json["CustomFields"].map((x) => ArcadierCustomField.fromJson(x))),
         timeZone: json["TimeZone"],
         active: json["Active"],
         enabled: json["Enabled"],

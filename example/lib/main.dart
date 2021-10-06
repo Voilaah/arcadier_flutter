@@ -51,8 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isLoading = false;
   var encoder = const JsonEncoder.withIndent('  ');
   Arcadier arcadier = Application.arcadier;
-  List<ItemResponse> _products = [];
-  TokenResponse? _adminToken;
+  List<ArcadierItem> _products = [];
+  ArcadierToken? _adminToken;
 
   get adminToken async {
     if (_adminToken != null) {
