@@ -1,7 +1,7 @@
 part of '../responses.dart';
 
-class CustomField {
-  CustomField({
+class CustomFieldResponse {
+  CustomFieldResponse({
     required this.code,
     required this.name,
     required this.dataFieldType,
@@ -15,7 +15,7 @@ class CustomField {
   List<String> values;
   bool isComparable;
 
-  factory CustomField.fromJson(Map<String, dynamic> json) => CustomField(
+  factory CustomFieldResponse.fromJson(Map<String, dynamic> json) => CustomFieldResponse(
         code: json["Code"],
         name: json["Name"],
         dataFieldType: json["DataFieldType"],

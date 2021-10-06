@@ -4,12 +4,12 @@ part of '../responses.dart';
 //
 //     final categories = categoriesFromJson(jsonString);
 
-Categories categoriesFromJson(String str) => Categories.fromJson(json.decode(str));
+CategoriesResponse categoriesFromJson(String str) => CategoriesResponse.fromJson(json.decode(str));
 
-String categoriesToJson(Categories data) => json.encode(data.toJson());
+String categoriesToJson(CategoriesResponse data) => json.encode(data.toJson());
 
-class Categories {
-  Categories({
+class CategoriesResponse {
+  CategoriesResponse({
     required this.totalRecords,
     required this.pageNumber,
     required this.pageSize,
@@ -20,15 +20,15 @@ class Categories {
   int totalRecords;
   int pageNumber;
   int pageSize;
-  List<Category> records;
-  Meta? meta;
+  List<CategoryResponse> records;
+  MetaResponse? meta;
 
-  factory Categories.fromJson(Map<String, dynamic> json) => Categories(
+  factory CategoriesResponse.fromJson(Map<String, dynamic> json) => CategoriesResponse(
         totalRecords: json["TotalRecords"],
         pageNumber: json["PageNumber"],
         pageSize: json["PageSize"],
-        records: List<Category>.from(json["Records"].map((x) => Category.fromJson(x))),
-        meta: (json["Meta"] != null && (json["Meta"] as Map).isNotEmpty) ? Meta.fromJson(json["Meta"]) : null,
+        records: List<CategoryResponse>.from(json["Records"].map((x) => CategoryResponse.fromJson(x))),
+        meta: (json["Meta"] != null && (json["Meta"] as Map).isNotEmpty) ? MetaResponse.fromJson(json["Meta"]) : null,
       );
 
   Map<String, dynamic> toJson() => {

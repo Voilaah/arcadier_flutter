@@ -46,7 +46,7 @@ class ItemsResource extends Resource {
     dynamic extraHeaders = {'Content-Type': 'application/json'};
     final response = await client.post(
       host,
-      ['api/${apiVersion}/items'],
+      ['api/$apiVersion/items'],
       data: json.encode(payload),
       extraHeaders: extraHeaders,
     );

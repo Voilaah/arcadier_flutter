@@ -10,7 +10,7 @@ import 'src/resources/marketplace_resource.dart';
 import 'src/resources/token_resource.dart';
 import 'src/resources/user_resource.dart';
 
-import 'src/responses.dart';
+// import 'src/responses.dart';
 
 // Make the Response Models visible from outside the library
 export 'src/responses.dart';
@@ -48,6 +48,7 @@ class Arcadier {
 
   // Single record
   late ItemResource _item;
+  late ItemResource item;
   late CategoryResource _category;
   late UserResource _user;
   late UserResource user;
@@ -67,15 +68,16 @@ class Arcadier {
     categories = CategoriesResource(_client, host, apiVersion);
     //
     token = TokenResource(_client, host, apiVersion);
-    _item = ItemResource(_client, host, apiVersion);
+    item = ItemResource(_client, host, apiVersion);
+    // _item = ItemResource(_client, host, apiVersion);
     // _user = UserResource(_client, host, apiVersion);
     user = UserResource(_client, host, apiVersion);
     _category = CategoryResource(_client, host, apiVersion);
   }
 
-  Future<Item> item(String id) async {
-    return await _item.get(id);
-  }
+  // Future<Item> item(String id) async {
+  //   return await _item.get(id);
+  // }
 
   // Future<User> user(String id) async {
   //   return await _user.get(id);

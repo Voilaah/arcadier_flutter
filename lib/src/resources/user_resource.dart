@@ -12,14 +12,15 @@ class UserResource extends Resource {
   UserResource(Client client, String host, String apiVersion) : super(client, host, apiVersion);
 
   /// Retrieve a user (buyer or merchant) information
-  Future<User> get(String userId) async {
+  Future<UserResponse> get(String userId) async {
     final data = {'userId': userId};
     final response = await client.get(host, ['api/${apiVersion}/users/${userId}']);
-    return User.fromJson(response);
+    return UserResponse.fromJson(response);
   }
 
   /// Register a BUYER account
-  Future<Token> register(String email, String password, String confirm_password, {required String adminToken}) async {
+  Future<TokenResponse> register(String email, String password, String confirm_password,
+      {required String adminToken}) async {
     dynamic extraHeaders = {
       'Content-Type': 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $adminToken',
@@ -27,13 +28,13 @@ class UserResource extends Resource {
     final payload = {'Email': email, 'Password': password, 'ConfirmPassword': confirm_password};
     final response = await client.post(host, ['api/${apiVersion}/accounts/register'],
         data: json.encode(payload), extraHeaders: extraHeaders);
-    return Token.fromJson(response);
+    return TokenResponse.fromJson(response);
   }
 
   /// Update a userId account information
   ///
   /// token can be adminToken, merchantToken or userToken
-  Future<User> update(String userId, UserRequest userRequest, {required String token}) async {
+  Future<UserResponse> update(String userId, UserRequest userRequest, {required String token}) async {
     dynamic extraHeaders = {
       'Content-Type': 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -41,11 +42,11 @@ class UserResource extends Resource {
     final payload = userRequest.toJson();
     final response = await client.put(host, ['api/${apiVersion}/users/$userId'],
         data: json.encode(payload), extraHeaders: extraHeaders);
-    return User.fromJson(response);
+    return UserResponse.fromJson(response);
   }
 
   /// Promotes a BUYER to MERCHANT account
-  Future<Result> promote(String userId,
+  Future<ResultResponse> promote(String userId,
       {String newRole = "merchant", required String adminId, required String adminToken}) async {
     dynamic extraHeaders = {
       'Content-Type': 'application/json',
@@ -57,6 +58,6 @@ class UserResource extends Resource {
     // print('-----------');
     // print(response);
     // print('-----------');
-    return Result.fromJson(response);
+    return ResultResponse.fromJson(response);
   }
 }

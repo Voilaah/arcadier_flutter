@@ -1,11 +1,11 @@
 part of '../responses.dart';
 
-Media mediaFromJson(String str) => Media.fromJson(json.decode(str));
+MediaResponse mediaFromJson(String str) => MediaResponse.fromJson(json.decode(str));
 
-String mediaToJson(Media data) => json.encode(data.toJson());
+String mediaToJson(MediaResponse data) => json.encode(data.toJson());
 
-class Media {
-  Media({
+class MediaResponse {
+  MediaResponse({
     required this.id,
     required this.mediaUrl,
   });
@@ -13,7 +13,7 @@ class Media {
   dynamic id;
   String mediaUrl;
 
-  factory Media.fromJson(Map<String, dynamic> json) => Media(
+  factory MediaResponse.fromJson(Map<String, dynamic> json) => MediaResponse(
         id: json["ID"],
         mediaUrl: json["MediaUrl"],
       );

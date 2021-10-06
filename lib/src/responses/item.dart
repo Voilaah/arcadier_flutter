@@ -4,12 +4,12 @@ part of '../responses.dart';
 //
 //     final item = itemFromJson(jsonString);
 
-Item itemFromJson(String str) => Item.fromJson(json.decode(str));
+ItemResponse itemFromJson(String str) => ItemResponse.fromJson(json.decode(str));
 
-String itemToJson(Item data) => json.encode(data.toJson());
+String itemToJson(ItemResponse data) => json.encode(data.toJson());
 
-class Item {
-  Item({
+class ItemResponse {
+  ItemResponse({
     required this.id,
     this.sku,
     required this.name,
@@ -95,25 +95,25 @@ class Item {
   dynamic keywords;
   MerchantDetail merchantDetail;
   dynamic location;
-  List<Category> categories;
+  List<CategoryResponse> categories;
   List<dynamic> shippingMethods;
   List<dynamic> pickupAddresses;
-  List<Media> media;
+  List<MediaResponse> media;
   dynamic tags;
   dynamic scheduler;
   dynamic distance;
-  List<CustomField> customFields;
+  List<CustomFieldResponse> customFields;
   int createdDateTime;
   int modifiedDateTime;
   bool hasChildItems;
-  List<Item>? childItems;
+  List<ItemResponse>? childItems;
   List<dynamic>? addOns;
   dynamic serviceBookingUnitGuid;
   dynamic bookingUnit;
   dynamic durationUnit;
   bool isLocked;
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory ItemResponse.fromJson(Map<String, dynamic> json) => ItemResponse(
         id: json["ID"],
         sku: json["SKU"],
         name: json["Name"],
@@ -147,20 +147,21 @@ class Item {
         keywords: json["Keywords"],
         merchantDetail: MerchantDetail.fromJson(json["MerchantDetail"]),
         location: json["Location"],
-        categories: List<Category>.from(json["Categories"].map((x) => Category.fromJson(x))),
+        categories: List<CategoryResponse>.from(json["Categories"].map((x) => CategoryResponse.fromJson(x))),
         shippingMethods:
             json["ShippingMethods"] != null ? List<dynamic>.from(json["ShippingMethods"].map((x) => x)) : [],
         pickupAddresses:
             json["PickupAddresses"] != null ? List<dynamic>.from(json["PickupAddresses"].map((x) => x)) : [],
-        media: json["Media"] != null ? List<Media>.from(json["Media"].map((x) => Media.fromJson(x))) : [],
+        media:
+            json["Media"] != null ? List<MediaResponse>.from(json["Media"].map((x) => MediaResponse.fromJson(x))) : [],
         tags: json["Tags"],
         scheduler: json["Scheduler"],
         distance: json["Distance"],
-        customFields: List<CustomField>.from(json["CustomFields"].map((x) => CustomField.fromJson(x))),
+        customFields: List<CustomFieldResponse>.from(json["CustomFields"].map((x) => CustomFieldResponse.fromJson(x))),
         createdDateTime: json["CreatedDateTime"],
         modifiedDateTime: json["ModifiedDateTime"],
         hasChildItems: json["HasChildItems"],
-        childItems: json["ChildItems"] != null ? List<Item>.from(json["ChildItems"].map((x) => x)) : [],
+        childItems: json["ChildItems"] != null ? List<ItemResponse>.from(json["ChildItems"].map((x) => x)) : [],
         addOns: json["AddOns"] != null ? List<dynamic>.from(json["AddOns"].map((x) => x)) : [],
         serviceBookingUnitGuid: json["ServiceBookingUnitGuid"],
         bookingUnit: json["BookingUnit"],

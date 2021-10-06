@@ -44,7 +44,7 @@ class MerchantDetail {
   String phoneNumber;
   dynamic dateJoined;
   dynamic roles;
-  List<Media> media;
+  List<MediaResponse> media;
   dynamic customFields;
   dynamic timeZone;
   dynamic onboarded;
@@ -75,7 +75,7 @@ class MerchantDetail {
         phoneNumber: json["PhoneNumber"],
         dateJoined: json["DateJoined"],
         roles: json["Roles"],
-        media: List<Media>.from(json["Media"].map((x) => Media.fromJson(x))),
+        media: List<MediaResponse>.from(json["Media"].map((x) => MediaResponse.fromJson(x))),
         customFields: json["CustomFields"],
         timeZone: json["TimeZone"],
         onboarded: json["Onboarded"],

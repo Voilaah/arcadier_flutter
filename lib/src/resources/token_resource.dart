@@ -19,7 +19,7 @@ class TokenResource extends Resource {
   /// ```dart
   /// final token = await arcadier.token.createUser("4242424242424242", "4242424242424242", "john@email.com", "ChangeMeNow");
   /// ```
-  Future<Token> forUser(String username, String password,
+  Future<TokenResponse> forUser(String username, String password,
       {String? grantType = _userGrantType, String? scope = _defaultScope}) async {
     final data = {
       'client_id': client.clientId,
@@ -32,7 +32,7 @@ class TokenResource extends Resource {
 
     final response = await client.post(host, ['token'], data: data);
     accessToken = response['access_token'];
-    return Token.fromJson(response);
+    return TokenResponse.fromJson(response);
   }
 
   /// Create a token for an Admin
@@ -43,7 +43,7 @@ class TokenResource extends Resource {
   /// ```dart
   /// final token = await arcadier.token.createAdmin("4242424242424242", "4242424242424242");
   /// ```
-  Future<Token> forAdmin({String? grantType = _adminGrantType, String? scope = _defaultScope}) async {
+  Future<TokenResponse> forAdmin({String? grantType = _adminGrantType, String? scope = _defaultScope}) async {
     final data = {
       'client_id': client.clientId,
       'client_secret': client.clientSecret,
@@ -53,7 +53,7 @@ class TokenResource extends Resource {
 
     final response = await client.post(host, ['token'], data: data);
     accessToken = response['access_token'];
-    return Token.fromJson(response);
+    return TokenResponse.fromJson(response);
   }
 
   Future<void> refreshToken() async {

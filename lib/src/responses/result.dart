@@ -1,19 +1,19 @@
 part of '../responses.dart';
 
-Result resultFromJson(String str) => Result.fromJson(json.decode(str));
+ResultResponse resultFromJson(String str) => ResultResponse.fromJson(json.decode(str));
 
-String resultToJson(Result data) => json.encode(data.toJson());
+String resultToJson(ResultResponse data) => json.encode(data.toJson());
 
-class Result {
-  Result({
+class ResultResponse {
+  ResultResponse({
     required this.result,
     this.accessToken,
   });
 
   bool result;
-  Token? accessToken;
+  TokenResponse? accessToken;
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  factory ResultResponse.fromJson(Map<String, dynamic> json) => ResultResponse(
         result: json["Result"],
         // accessToken: json["AccessToken"] ? Token.fromJson(json["AccessToken"]) : null,
       );

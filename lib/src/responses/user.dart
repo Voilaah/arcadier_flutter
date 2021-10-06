@@ -4,12 +4,12 @@ part of '../responses.dart';
 //
 //     final user = userFromJson(jsonString);
 
-User userFromJson(String str) => User.fromJson(json.decode(str));
+UserResponse userFromJson(String str) => UserResponse.fromJson(json.decode(str));
 
-String userToJson(User data) => json.encode(data.toJson());
+String userToJson(UserResponse data) => json.encode(data.toJson());
 
-class User {
-  User({
+class UserResponse {
+  UserResponse({
     required this.id,
     this.userName = null,
     required this.email,
@@ -55,7 +55,7 @@ class User {
   String? phoneNumber;
   int dateJoined;
   List<String>? roles = [];
-  List<Media>? media = [];
+  List<MediaResponse>? media = [];
   dynamic customFields;
   dynamic timeZone;
   bool onboarded;
@@ -74,7 +74,7 @@ class User {
   dynamic permissions;
   int totalSuccessfulOrderCount;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserResponse.fromJson(Map<String, dynamic> json) => UserResponse(
         id: json["ID"],
         userName: json["UserName"],
         email: json["Email"],
@@ -86,7 +86,7 @@ class User {
         phoneNumber: json["PhoneNumber"],
         dateJoined: json["DateJoined"],
         roles: List<String>.from(json["Roles"].map((x) => x)),
-        media: List<Media>.from(json["Media"].map((x) => x)),
+        media: List<MediaResponse>.from(json["Media"].map((x) => x)),
         customFields: json["CustomFields"],
         timeZone: json["TimeZone"],
         onboarded: json["Onboarded"],

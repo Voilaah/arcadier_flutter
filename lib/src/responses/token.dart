@@ -1,11 +1,11 @@
 part of '../responses.dart';
 
-Token tokenFromJson(String str) => Token.fromJson(json.decode(str));
+TokenResponse tokenFromJson(String str) => TokenResponse.fromJson(json.decode(str));
 
-String tokenToJson(Token data) => json.encode(data.toJson());
+String tokenToJson(TokenResponse data) => json.encode(data.toJson());
 
-class Token {
-  Token({
+class TokenResponse {
+  TokenResponse({
     required this.accessToken,
     required this.tokenType,
     required this.expiresIn,
@@ -19,7 +19,7 @@ class Token {
   final String refreshToken;
   final String userId;
 
-  factory Token.fromJson(Map<String, dynamic> json) => Token(
+  factory TokenResponse.fromJson(Map<String, dynamic> json) => TokenResponse(
         accessToken: json["access_token"],
         tokenType: json["token_type"],
         expiresIn: json["expires_in"],

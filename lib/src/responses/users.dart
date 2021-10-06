@@ -4,12 +4,12 @@ part of '../responses.dart';
 //
 //     final users = usersFromJson(jsonString);
 
-Users usersFromJson(String str) => Users.fromJson(json.decode(str));
+UsersResponse usersFromJson(String str) => UsersResponse.fromJson(json.decode(str));
 
-String usersToJson(Users data) => json.encode(data.toJson());
+String usersToJson(UsersResponse data) => json.encode(data.toJson());
 
-class Users {
-  Users({
+class UsersResponse {
+  UsersResponse({
     required this.totalRecords,
     required this.pageNumber,
     required this.pageSize,
@@ -19,20 +19,20 @@ class Users {
   int totalRecords;
   int pageNumber;
   int pageSize;
-  List<User> records;
+  List<UserResponse> records;
 
-  factory Users.fromJson(Map<String, dynamic> json) => Users(
+  factory UsersResponse.fromJson(Map<String, dynamic> json) => UsersResponse(
         totalRecords: json["TotalRecords"],
         pageNumber: json["PageNumber"],
         pageSize: json["PageSize"],
-        records: List<User>.from(json["Records"].map((x) => User.fromJson(x))),
+        records: List<UserResponse>.from(json["Records"].map((x) => UserResponse.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "TotalRecords": totalRecords,
         "PageNumber": pageNumber,
         "PageSize": pageSize,
-        "Records": List<User>.from(records.map((x) => x.toJson())),
+        "Records": List<UserResponse>.from(records.map((x) => x.toJson())),
       };
 }
 

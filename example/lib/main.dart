@@ -51,8 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isLoading = false;
   var encoder = const JsonEncoder.withIndent('  ');
   Arcadier arcadier = Application.arcadier;
-  List<Item> _products = [];
-  Token? _adminToken;
+  List<ItemResponse> _products = [];
+  TokenResponse? _adminToken;
 
   get adminToken async {
     if (_adminToken != null) {
@@ -189,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _isLoading = true;
     });
-    final item = await arcadier.item(itemId);
+    final item = await arcadier.item.get(itemId);
     String msg = _prettyPrint(item);
     _setMessage(msg);
     print(msg);
