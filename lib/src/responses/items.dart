@@ -4,12 +4,12 @@ part of '../responses.dart';
 //
 //     final items = itemsFromJson(jsonString);
 
-Items itemsFromJson(String str) => Items.fromJson(json.decode(str));
+ItemsResponse itemsFromJson(String str) => ItemsResponse.fromJson(json.decode(str));
 
-String itemsToJson(Items data) => json.encode(data.toJson());
+String itemsToJson(ItemsResponse data) => json.encode(data.toJson());
 
-class Items {
-  Items({
+class ItemsResponse {
+  ItemsResponse({
     required this.totalRecords,
     required this.pageNumber,
     required this.pageSize,
@@ -23,7 +23,7 @@ class Items {
   List<ItemResponse> records = [];
   MetaResponse meta;
 
-  factory Items.fromJson(Map<String, dynamic> json) => Items(
+  factory ItemsResponse.fromJson(Map<String, dynamic> json) => ItemsResponse(
         totalRecords: json["TotalRecords"],
         pageNumber: json["PageNumber"],
         pageSize: json["PageSize"],
