@@ -47,7 +47,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _message = "";
-  int _page = 1;
+  final int _page = 1;
   bool _isLoading = false;
   var encoder = const JsonEncoder.withIndent('  ');
   Arcadier arcadier = Application.arcadier;

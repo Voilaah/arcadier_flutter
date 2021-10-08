@@ -221,4 +221,14 @@ class ArcadierItem {
         "DurationUnit": durationUnit,
         "IsLocked": isLocked,
       };
+
+  // double? get weight {}
+  double? get oldPrice {
+    final ArcadierCustomField? _cf =
+        customFields.firstWhere((ArcadierCustomField customField) => customField.code == "53898-Oldprice-AkYCgYUGIX");
+    if (_cf != null) {
+      return double.parse(_cf.values.first);
+    }
+    return null;
+  }
 }
